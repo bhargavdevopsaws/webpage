@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Stop and remove the existing container (ignore errors if it doesn't exist)
+docker stop my-webpage || true
+docker rm my-webpage || true
+
+# Remove old Docker image
+docker rmi my-webpage || true
+
+# Build a new Docker image
+docker build -t my-webpage .
+
+# Run the container in detached mode (-d) and expose port 80
+docker run -d -p 80:80 --name my-webpage my-webpage
